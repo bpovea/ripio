@@ -7,12 +7,13 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id','username','first_name','last_name',]
+        read_only_fields = ['id','username','first_name','last_name',]
 
 
 class MeSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','username','first_name','last_name','balance']
+        fields = ['id','username','first_name','last_name','balance','email']
 
 class CurrencySerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,8 +22,26 @@ class CurrencySerializer(serializers.ModelSerializer):
         
 
 class TransactionSerializer(serializers.ModelSerializer):
-    user_from = UserSerializer(read_only=True)
-    user_to = UserSerializer(read_only=True)
+    user_from = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+        )
+    sender = UserSerializer(source="user_from", read_only=True)
+    receiver = UserSerializer(source="user_to",  read_only=True)
+    
+    def validate(self, attrs):
+        balance = attrs['user_from'].balance
+        if attrs['amount'] > balance:
+            raise serializers.ValidationError({"amount": f'Transfer amount must be less than available balance {balance:.2f}.'})
+        if attrs['amount'] <= 0:
+            raise serializers.ValidationError({"amount": f'Transfer amount must be more than zero.'})
+        return attrs
+        
     class Meta:
         model = Transaction
-        fields = '__all__'
+        fields = [
+            'user_from', 'sender',
+            'user_to', 'receiver',
+            'amount',
+            'currency_id',
+            'datetime',
+        ]

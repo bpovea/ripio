@@ -26,5 +26,13 @@ class Transaction(models.Model):
                                     on_delete=models.RESTRICT)
     datetime = models.DateTimeField(auto_now=True)
     
+    def save(self, *args, **kwargs):
+        r = super().save(*args, **kwargs)
+        self.user_from.balance -= self.amount
+        self.user_from.save()
+        self.user_to.balance += self.amount
+        self.user_to.save()
+        return r
+    
 
 
