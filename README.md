@@ -18,9 +18,25 @@ Backend deployment steps:
 4. Make and install migrations
 > python manage.py makemigrations & python manage.py migrate
 
-5. Create super user
-> python manage.py createsuperuser --email admin@admin.com --username admin
-
-6. load dump initial data
+7. Load dump initial data
 > python manage.py shell < seed.py
 
+6. Create super user
+> python manage.py createsuperuser --email admin@admin.com --username admin
+
+7. Run services
+> python manage.py runserver
+
+
+## Frontend
+
+Frontend deployment steps:
+
+1. Move to frontend/ folder
+> cd frontend/
+
+2. Install dependencies
+> npm install
+
+3. Run project
+> npm start
