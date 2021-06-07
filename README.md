@@ -20,3 +20,7 @@ Backend deployment steps:
 
 5. Create super user
 > python manage.py createsuperuser --email admin@admin.com --username admin
+
+6. load dump initial data
+> python manage.py shell < seed.py
+

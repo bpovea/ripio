@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.conf import settings
 
@@ -28,11 +30,14 @@ class Transaction(models.Model):
     
     def save(self, *args, **kwargs):
         r = super().save(*args, **kwargs)
-        self.user_from.balance -= self.amount
+        self.user_from.balance -= Decimal(self.amount)
         self.user_from.save()
-        self.user_to.balance += self.amount
+        self.user_to.balance += Decimal(self.amount)
         self.user_to.save()
         return r
+    
+    def __str__(self):
+        return "From: %s, To: %s amount: %f" % (self.user_from,self.user_to,self.amount)
     
 
 

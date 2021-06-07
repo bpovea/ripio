@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     # Ripio app
     'ripio.apps.RipioConfig',
+    # Django seeder
+    'django_seed',
 ]
 
 MIDDLEWARE = [
