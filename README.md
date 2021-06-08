@@ -24,7 +24,7 @@ Backend deployment steps:
 6. Create super user
 > python manage.py createsuperuser --email admin@admin.com --username admin
 
-7. Run services
+7. Run project
 > python manage.py runserver
 
 
