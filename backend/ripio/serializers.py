@@ -14,6 +14,7 @@ class MeSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id','username','first_name','last_name','balance','email']
+        read_only_fields = ['id','balance']
 
 class CurrencySerializer(serializers.ModelSerializer):
     class Meta:
