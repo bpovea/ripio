@@ -10,7 +10,6 @@ function UserInfo() {
 
     const cookies = new Cookies();
 
-
     const [userData, setUserData] = useState({
         'first_name': '',
         'last_name': '',
