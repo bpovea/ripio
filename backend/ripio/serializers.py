@@ -28,6 +28,7 @@ class TransactionSerializer(serializers.ModelSerializer):
         )
     sender = UserSerializer(source="user_from", read_only=True)
     receiver = UserSerializer(source="user_to",  read_only=True)
+    currency_id = CurrencySerializer(read_only=True)
     
     def validate(self, attrs):
         balance = attrs['user_from'].balance
@@ -40,6 +41,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = [
+            'id',
             'user_from', 'sender',
             'user_to', 'receiver',
             'amount',

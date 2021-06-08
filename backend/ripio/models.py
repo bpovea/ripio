@@ -10,7 +10,7 @@ class User(AbstractUser):
 
 
 class Currency(models.Model):
-    code = models.CharField(max_length=3)
+    code = models.CharField(max_length=3, unique=True)
     name = models.CharField(max_length=10)
     prefix = models.CharField(max_length=1)
     
