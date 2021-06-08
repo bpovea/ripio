@@ -26,6 +26,13 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class UsersViewSet(viewsets.ModelViewSet):
+    serializer_class = MeSerializer
+    permission_classes = (IsAuthenticated,)
+    
+    def get_queryset(self):
+        return User.objects.filter(~Q(id=self.request.user.id))
 
 
 class CurrencyViewSet(viewsets.ModelViewSet):
@@ -46,4 +53,8 @@ class TransactionViewSet(viewsets.ModelViewSet):
                                         .order_by('datetime')
         except: pass
         return queryset
+    
+    def post(self,request):
+        breakpoint()
+        return super().post(request)
     
