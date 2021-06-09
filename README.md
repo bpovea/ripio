@@ -18,7 +18,7 @@ Backend deployment steps:
 4. Make and install migrations
 > python manage.py makemigrations & python manage.py migrate
 
-7. Load dump initial data
+7. Load dump initial data *
 > python manage.py shell < seed.py
 
 6. Create super user
@@ -40,3 +40,7 @@ Frontend deployment steps:
 
 3. Run project
 > npm start
+
+
+## Notes
+* *dump users are created randomly, but each user will have the same password. it is 'ripio2021'.
